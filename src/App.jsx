@@ -30,9 +30,18 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-950 text-white pb-20">
 
-      <div className="text-center pt-16 pb-4">
-        <h1 className="text-4xl font-bold">Mood Board AI</h1>
-        <p className="text-gray-500 mt-2">Génère une identité visuelle en quelques secondes</p>
+      <div className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+        <span className="text-purple-400 font-semibold tracking-wide">MoodBoard AI</span>
+        <span className="text-gray-600 text-sm">Powered by AI</span>
+      </div>
+
+      <div className="text-center pt-16 pb-4 px-4">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Mood Board AI
+        </h1>
+        <p className="text-gray-500 mt-3 text-lg">
+          Décris une ambiance et laisse l'IA créer ton identité visuelle
+        </p>
       </div>
 
       <SearchBar onSearch={handleSearch} loading={loading} />
@@ -42,17 +51,18 @@ function App() {
       )}
 
       {loading && (
-        <p className="text-purple-400 text-center mt-10 animate-pulse">
-          Génération en cours...
-        </p>
+        <div className="text-center mt-16">
+          <div className="inline-block w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p className="text-gray-400">Génération en cours...</p>
+        </div>
       )}
 
       {moodData && !loading && (
-        <>
+        <div id="moodboard-result">
           <MoodInfo description={moodData.description} fonts={moodData.fonts} />
           <ColorPalette colors={moodData.colors} />
           <ImageGrid images={images} />
-        </>
+        </div>
       )}
 
     </div>
