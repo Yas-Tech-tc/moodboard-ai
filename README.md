@@ -73,4 +73,4 @@ The app uses free tier API keys which have rate limits. If you get an error afte
 - Add a history of previously generated mood boards
 - Deploy on Vercel
 
-  https://moodboard-ai-rust.vercel.app/
+
