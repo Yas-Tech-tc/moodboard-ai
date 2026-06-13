@@ -1,16 +1,20 @@
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
+const API_KEY = import.meta.env.VITE_GEMINI_KEY
 
 export async function getMoodBoardData(prompt) {
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+    "https://openrouter.ai/api/v1/chat/completions",
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${API_KEY}`
+      },
       body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `Tu es un expert en design et identité visuelle.
-            
+        model: "openai/gpt-oss-120b:free",
+        messages: [{
+          role: "user",
+          content: `Tu es un expert en design et identité visuelle.
+          
 L'utilisateur décrit une ambiance : "${prompt}"
 
 Réponds UNIQUEMENT en JSON valide avec cette structure exacte :
@@ -20,14 +24,14 @@ Réponds UNIQUEMENT en JSON valide avec cette structure exacte :
   "keywords": ["mot1", "mot2", "mot3"],
   "description": "Une phrase courte qui décrit l'ambiance"
 }`
-          }]
         }]
       })
     }
   )
 
   const data = await response.json()
-  const text = data.candidates[0].content.parts[0].text
+  console.log("API response:", data)
+  const text = data.choices[0].message.content
   const cleaned = text.replace(/```json|```/g, "").trim()
   return JSON.parse(cleaned)
 }
