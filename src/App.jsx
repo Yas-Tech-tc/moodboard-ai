@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar"
 import ColorPalette from "./components/ColorPalette"
 import ImageGrid from "./components/ImageGrid"
 import MoodInfo from "./components/MoodInfo"
+import domtoimage from "dom-to-image"
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -26,6 +27,14 @@ function App() {
       setLoading(false)
     }
   }
+  async function handleExport() {
+  const element = document.getElementById("moodboard-result")
+  const dataUrl = await domtoimage.toPng(element, { scale: 2 })
+  const link = document.createElement("a")
+  link.download = "moodboard.png"
+  link.href = dataUrl
+  link.click()
+}
 
   return (
     <div className="min-h-screen bg-gray-950 text-white pb-20">
@@ -62,7 +71,15 @@ function App() {
           <MoodInfo description={moodData.description} fonts={moodData.fonts} />
           <ColorPalette colors={moodData.colors} />
           <ImageGrid images={images} />
-        </div>
+          <div className="flex justify-center mt-10">
+        <button
+          onClick={handleExport}
+          className="bg-white text-gray-950 font-semibold px-8 py-3 rounded-xl hover:bg-gray-200 transition-colors"
+          >
+          Exporter en PNG
+        </button>
+  </div>
+</div>
       )}
 
     </div>
