@@ -66,11 +66,7 @@ index.css
 
 The app uses free tier API keys which have rate limits. If you get an error after generating several mood boards in a row, wait a minute before trying again.
 
-## Roadmap
-
-- Export the mood board as a PNG file
-- Load the suggested fonts dynamically from Google Fonts
-- Add a history of previously generated mood boards
-- Deploy on Vercel
+## Live demo
+**[https://moodboard-ai-rust.vercel.app/]
 
 
